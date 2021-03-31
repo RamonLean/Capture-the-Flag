@@ -63,5 +63,47 @@ CTF  - Enumerando, explorando vulnerabilidade, conseguindo shell e posteriorment
   
   # Passo 4
   
+  Agora temos a aplicação -"sar2HTML"- e sua versão. Fazendo uma pesquisa, podemos ver que a aplicação é vulnerável e possui um exploit disponível.
+    
+   <h1 align="center">
+  <img alt="" title="Imagem7" src="Imagens/Imagem7.png" />
+  </h1>
   
+  O primeiro resultado no google nos leva ao **Exploit-DB**. A ferramenta que roda no sistema possui a vulnerabilidade de execução de código remoto. Podemos ver os detalhes do exploit abaixo:
   
+   <h1 align="center">
+  <img alt="" title="Imagem8" src="Imagens/Imagem8.png" />
+  </h1>
+  
+  Podemos ver os parâmetros de utilização do exploit
+  
+Montando a URL para utilizar no alvo:  **Exploit <<<http:192.168.1.24/sar2HTML/index.php?plot=;>>>**
+
+Tentando ler o arquivo **_"/etc/passwd"_** através da execução do comando na URL. O resultado pode ser vist abaixo:
+
+   <h1 align="center">
+  <img alt="" title="Imagem9" src="Imagens/Imagem9.png" />
+  </h1>
+  
+  O exploit funcionouuu e retornou o conteúdo de "/etc/passwd".
+  
+  # Passo 5
+  
+  Agora podemos executar comandos no alvo através do navegador utilizando o exploit. Como o objetivo é conseguir o acesso root, vamos conseguir um acesso um shell reverso. Existem algumas possibilidades para isso:
+        1. Podemos utilizar python and perl
+        2. Podemos utilizar o metasploit pra criar o arquivo de conexão reversa, fazer download dele como o comando **wget** e executá-lo.
+        3. Se a máquina alvo possuir o netcat, podemos utilizá-lo para criar a conexão reversa.
+       
+Tentando o terceiro método primeiro, para isso basta verificar se á máquina alvo possui o netcat. Podemos rodar o comando **"nc --help"**, se o comando retornar o resultado quer dizer que o netcat está disponível.
+
+   <h1 align="center">
+  <img alt="" title="Imagem10" src="Imagens/Imagem10.png" />
+  </h1>
+  
+  Como podemos ver acima o comando não retornou nada. Então vamos tentar o primeiro método. Para isso basta verificar se existe python ou perl instalando no sistema. Testando python primerio
+  
+   <h1 align="center">
+  <img alt="" title="Imagem9" src="Imagens/Imagem9.png" />
+  </h1>
+  
+  Como podemos ver na imagem, python está disponível no alvo e pode ser usado para conexão reversa. 
