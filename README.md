@@ -129,7 +129,7 @@ Tentando o terceiro método primeiro, para isso basta verificar se á máquina a
   Agora temos o acesso a shell, mas é uma acesso limitado. E o objectivo é conseguir acesso root. Então primeiro exectuta-se o comando para que nos dá acesso estável a shell.
   
     <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem13" src="Imagens/Imagem13.png" />
   </h1>
   
   **python3 -c ‘import pty;pty.spawn(“/bin/bash”)’**
@@ -145,7 +145,7 @@ Tentando o terceiro método primeiro, para isso basta verificar se á máquina a
   Com essas informações em mãos pode-se pesquisar e ver o que se encontra. Procurando exploits online, nenhum pareceu atender. Entretanto, explorando o sistema por mais informações, conseguimos uma "user flag", como mostrado no print abaixo:
   
    <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem14" src="Imagens/Imagem14.png" />
   </h1>
   
   **cd /home/love/Desktop**
@@ -158,13 +158,13 @@ Tentando o terceiro método primeiro, para isso basta verificar se á máquina a
  Buscando por permissões de arquivo **<<cat /etc/crontab>>**, temos um Cron que é executado como root a cada 5 minutos
   
    <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem15" src="Imagens/Imagem15.png" />
   </h1>
   
   O Cron está rodando a partir de um arquivo, "finally.sh" como visto na imagem
     
    <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem16" src="Imagens/Imagem16.png" />
   </h1>
   
   Mudando de diretório para **/var/www/html**  e lendos os  arquivos e suas permissões pode-se ver que com o nível de acesso atual, é possivel editar o arquivo "write.sh", que será excutado pelo Cron, que por sua vez roda como root.
@@ -176,13 +176,13 @@ Tentando o terceiro método primeiro, para isso basta verificar se á máquina a
   Esse comando o sistema alvo se conectará a nós (conexão reversa) na porta 4444. Como a ativade Cron estava configurada para executar a cada 5 minutos, aguardando esse tempo temos a conexão.
   
    <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem17" src="Imagens/Imagem17.png" />
   </h1> 
   
   Agora que temos acesso root, podemos, objetivo deste CTF, Podemos ler a flag **cat root.txt**
   
   <h1 align="center">
-  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  <img alt="" title="Imagem18" src="Imagens/Imagem18.png" />
   </h1>
   
   Podemos fazer qualquer coisa no sistema agora e isso completa o CTF.
