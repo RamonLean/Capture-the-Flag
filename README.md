@@ -41,7 +41,7 @@ CTF  - Enumerando, explorando vulnerabilidade, conseguindo shell e posteriorment
   
   
   <h1 align="center">
-  <img alt="" title="Imagem4" src="Imagens/Imagem3.png" />
+  <img alt="" title="Imagem4" src="Imagens/Imagem4.png" />
   </h1>
   
   **_Comando usado dirb 192.168.1.24_**
