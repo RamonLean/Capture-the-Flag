@@ -2,6 +2,8 @@
 CTF  - Enumerando, explorando vulnerabilidade, conseguindo shell e posteriormente acesso root.
 <h2>Passos seguidos para realizar essa exploração.</h2>
 
+**_Máquina alvo para download: https://www.vulnhub.com/entry/sar-1,425/_**
+
 1. Utilizar o **Netdiscover**
 2. Escanear portas usando **Nmap**
 3. Enumeração da aplicação web com **Dirb**
